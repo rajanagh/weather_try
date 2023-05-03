@@ -1,0 +1,55 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="api.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald&family=Roboto:ital,wght@1,300&display=swap" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h2><i class="fa fa-map-marker"><span id="location"></span></i></h2>
+            <h6 id="weather"></h6>
+            <h4><span id="temp"></span><sup>o</sup>C</h4>
+            <img src="" alt="" id="icon">
+            <button onclick="window.location.reload()" class="refresh"><i class="fa fa-refresh"></i></button>
+        </div>
+    </div>
+     <!-- Latest compiled and minified CSS -->
+
+    </body>
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> 
+
+<!-- Latest compiled JavaScript -->
+<script>
+    link= "https://api.openweathermap.org/data/2.5/weather?q=patna&appid=c4b9ecfaeb8a76329d20b8d4e4dced3f";
+    var request = new XMLHttpRequest();
+    request.open('GET',link,true);
+    request.onload = function(){
+        var obj = JSON.parse(this.response);
+        console.log(obj);
+        document.getElementById('weather').innerHTML = obj.weather[0].description;
+        document.getElementById('location').innerHTML = obj.name;
+        document.getElementById('temp').innerHTML = Math.round(obj.main.temp - 273.15);
+        document.getElementById('icon').src = "https://openweathermap.org/img/w/" + obj.weather[0].icon + ".png";
+        if(request.status>=200 && request.status<400){
+            var temp=obj.main.temp;
+        }
+        else{
+            console.log("City is not located");
+        }
+    }
+    request.send();
+</script>
+ 
+    
+
+</html>
